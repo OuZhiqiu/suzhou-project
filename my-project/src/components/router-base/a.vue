@@ -5,7 +5,10 @@
     <button @click="toBCom">使用path跳转到b页面</button>
     <button @click="huoquB">获取b传递过来的参数</button>
 
-    <a-child :toChild="text" @child-parent-func="child()"></a-child>
+    <a-child :toChild="text" @child-parent-func="child"></a-child>
+    <p>
+      vue父子组件之间的传值参考网页：https://www.jianshu.com/p/af9cb05bfbaf
+    </p>
   </div>
 </template>
 
@@ -22,7 +25,7 @@ export default {
     };
   },
   methods: {
-    child() {
+    child(data) {
       console.log(data);
     },
 
