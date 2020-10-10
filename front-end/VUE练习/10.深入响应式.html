@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>深入响应式</title>
+  </head>
+  <body>
+    <div id="app">
+      {{obj.a}} {{obj.b}} {{obj.c}}
+      <button @click="addAttr">newAdd</button>
+      <button @click="aAdd">Add</button>
+
+      <div v-for="(item,index) in arr">{{item}}</div>
+
+      <button @click="changeArr">changArr</button>
+      <button @click="changeLength">changeLength</button>
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          obj: {
+            a: 10,
+            b: 20,
+          },
+          arr: ["a", "b", "c"],
+        },
+        methods: {
+          aAdd() {
+            this.obj.a++;
+            console.log(this.obj.a);
+          },
+          addAttr() {
+            // this.obj.c = 30;
+            // Vue.set(this.obj,'c',30)
+            // this.$set(this.obj,'c',40)
+            this.obj = Object.assign({}, this.obj, { c: 50 });
+          },
+          changeArr() {
+            Vue.set(this.arr, 1, "bb");
+            this.$set(this.arr, 1, "bbb");
+          },
+          changeLength() {
+            this.arr.splice(1, 1, "bbbb");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

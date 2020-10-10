@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      #app {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      #app .headUl {
+        display: flex;
+      }
+
+      #app .headUl li {
+        text-align: center;
+        height: 35px;
+        line-height: 35px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      #app .headUl :nth-child(1),
+      #app .headUl :nth-child(3),
+      #app .headUl :nth-child(5) {
+        border: 1px solid #ddd;
+        flex: 1;
+      }
+      #app .headUl :nth-child(2),
+      #app .headUl :nth-child(4) {
+        border: 1px solid #ddd;
+        border-right: none;
+        border-left: none;
+        flex: 2;
+      }
+
+      #app .tableLi {
+        display: flex;
+      }
+
+      #app .tableLi div {
+        text-align: center;
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px;
+      }
+
+      #app .tableLi :nth-child(1),
+      #app .tableLi :nth-child(3),
+      #app .tableLi :nth-child(5) {
+        border: 1px solid #ddd;
+        flex: 1;
+      }
+      #app .tableLi :nth-child(2),
+      #app .tableLi :nth-child(4) {
+        border: 1px solid #ddd;
+        border-right: none;
+        border-left: none;
+        flex: 2;
+      }
+
+      #app .tableTotalDiv {
+        width: 100%;
+        text-align: center;
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-top: none;
+      }
+
+      #app .tableLi button {
+        width: 25px;
+        height: 25px;
+        margin: 0 5px;
+      }
+    </style>
+  </head>
+
+  <div id="app">
+    <ul class="headUl">
+      <li>编号</li>
+      <li>名称</li>
+      <li>单价</li>
+      <li>数量</li>
+      <li>总价</li>
+    </ul>
+
+    <ul>
+      <li v-for="(item,input) in tableData" :key="input" class="tableLi">
+        <div>{{item.code}}</div>
+        <div>{{item.name}}</div>
+        <div>{{item.price}}</div>
+        <div>
+          <button @click="add(item)">+</button>
+          {{item.count}}
+          <button @click="deleteCount(item)">-</button>
+        </div>
+        <div>{{getRowTotal(item)}}</div>
+      </li>
+    </ul>
+
+    <div class="tableTotalDiv">总价：￥{{tableTotal}}</div>
+  </div>
+
+  <body>
+    <script src="./js/vue.js"></script>
+    <script>
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          tableData: [
+            { code: 1, name: "css", price: 52.3, count: 1, total: 0 },
+            { code: 2, name: "html", price: 64.3, count: 1, total: 0 },
+            { code: 3, name: "javaScript", price: 35.3, count: 1, total: 0 },
+          ],
+        },
+        methods: {
+          add(item) {
+            item.count++;
+          },
+          deleteCount(item) {
+            if (item.count === 1) {
+              return;
+            }
+            item.count--;
+          },
+          getRowTotal(item) {
+            item.total = parseFloat(item.price * item.count);
+            return item.total.toFixed(2);
+          },
+        },
+        computed: {
+          tableTotal() {
+            let total = 0;
+            total = this.tableData.reduce((prev, next) => {
+              return prev + next.total;
+            }, 0);
+            return total.toFixed(2);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

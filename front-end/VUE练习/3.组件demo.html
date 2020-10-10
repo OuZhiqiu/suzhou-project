@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件demo</title>
+  </head>
+  <style>
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      position: relative;
+      width: 500px;
+      height: 400px;
+      border: 1px solid #aaa;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .container ul {
+      display: flex;
+      flex-direction: column;
+    }
+    .container li {
+      margin: 2px 0px;
+      padding: 5px 10px;
+      border-radius: 15px;
+      color: #fff;
+    }
+    .send-window {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      border: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+    }
+    .container ul li.xh {
+      align-self: flex-end;
+      background: rgb(231, 154, 167);
+      margin-left: 20%;
+    }
+    .container ul li.xm {
+      background: rgb(97, 151, 202);
+      align-self: flex-start;
+      margin-right: 20%;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <div class="container">
+        <ul>
+          <!-- <li>下载免费的撒</li> -->
+          <li
+            v-for="(item,index) in list"
+            v-bind:class="{xm:item.type==='xm',xh:item.type==='xh'}"
+          >
+            {{item.type === 'xm' ? '小明说：' : '小红说：'}}{{item.message}}
+          </li>
+        </ul>
+
+        <div class="send-window">
+          <xiaoming v-on:xm-send="getchildValue"></xiaoming>
+          <xiaohong v-on:xh-send="getchildValue"></xiaohong>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      Vue.component("xiaoming", {
+        template: `
+          <div>
+            <input type="text" v-model="xmInputValue" v-on:keyup.enter="xmSendToParent" placeholder="小明说：" />
+            <button v-on:click="xmSendToParent">发送</button>
+          </div>
+            `,
+        data() {
+          return {
+            xmInputValue: "",
+          };
+        },
+        methods: {
+          xmSendToParent() {
+            if (!this.xmInputValue) {
+              console.log("请输入内容");
+              return;
+            }
+            console.log(this.xmInputValue);
+            this.$emit("xm-send", {
+              type: "xm",
+              message: this.xmInputValue,
+            });
+            this.xmInputValue = "";
+          },
+        },
+      });
+      Vue.component("xiaohong", {
+        template: `
+          <div>
+            <input type="text" v-model="xhInputValue" v-on:keyup.enter="xhSendToParent" placeholder="小红说：" />
+            <button v-on:click="xhSendToParent">发送</button>
+          </div>
+            `,
+        data() {
+          return {
+            xhInputValue: "",
+          };
+        },
+        methods: {
+          xhSendToParent() {
+            if (!this.xhInputValue) {
+              console.log("请输入内容");
+              return;
+            }
+            console.log(this.xhInputValue);
+            this.$emit("xh-send", { type: "xh", message: this.xhInputValue });
+            this.xhInputValue = "";
+          },
+        },
+      });
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          list: [],
+        },
+        methods: {
+          getchildValue(data) {
+            this.list.push(data);
+            console.log("接收到了", data);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

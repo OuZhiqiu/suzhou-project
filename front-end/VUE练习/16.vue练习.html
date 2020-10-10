@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>列表添加与删除</title>
+    <style>
+      .page-info {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .page-info li {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        background: #ddd;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+
+      .page-info li.active {
+        background: #e1251b;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input v-model="inputValue" @keyup.enter="add" type="text" />
+      <button @click="add">添加</button>
+
+      <input v-model="searchValue" @keyup.enter="search" type="text" />
+      <button @click="search">查询</button>
+
+      <ul>
+        <li v-for="(item,index) in newArr" :key="index">
+          <span>{{item.msg}}</span>
+          <button @click="deleteRow(item)">删除</button>
+        </li>
+      </ul>
+
+      <ul class="page-info">
+        <li
+          v-for="item in pageTotal"
+          @click="changepageInfo(item)"
+          :class="{active:currentpage === item}"
+        >
+          {{item}}
+        </li>
+      </ul>
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          currentpage: 1,
+          inputValue: "",
+          searchValue: "",
+          arr: [],
+        },
+        computed: {
+          pageTotal() {
+            return Math.ceil(this.arr.length / 5);
+          },
+          newArr() {
+            let endIndex = this.currentpage * 5;
+            return this.arr.slice(endIndex - 5, endIndex);
+          },
+        },
+        methods: {
+          //在缓存中拿出并进行模糊查询
+          search() {
+            this.arr = JSON.parse(sessionStorage.getItem("arr")).filter(
+              (item) => {
+                return item.msg.includes(this.searchValue);
+              }
+            );
+          },
+
+          //sessionStorage.setItem("arr", JSON.stringify(this.arr));
+          //将数据存入缓存中
+          add() {
+            this.arr.push({ id: new Date().getTime(), msg: this.inputValue });
+
+            sessionStorage.setItem("arr", JSON.stringify(this.arr));
+
+            this.inputValue = "";
+          },
+
+          deleteRow(data) {
+            let index = this.arr.findIndex((item) => {
+              return data.id === item.id;
+            });
+            this.arr.splice(index, 1);
+
+            sessionStorage.setItem("arr", JSON.stringify(this.arr));
+          },
+          changePageInfo(index) {
+            this.currentPage = index;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

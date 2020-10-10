@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>监听器</title>
+  </head>
+  <body>
+    <div id="app">
+        <!-- {{firstName}} {{lastName}} -->
+        {{userName}}
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          userName: "leBron-james",
+          firstName: "",
+          lastName: "",
+        },
+        methods: {},
+        watch: {
+          //   userName(value) {
+          //     this.firstName = value.split("-")[0];
+          //     this.lastName = value.split("-")[1];
+          //     console.log(value);
+          //   },
+
+          //   userName: {
+          //     handler(newValue, oldValue) {
+          //       this.firstName = newValue.split("-")[0];
+          //       this.lastName = newValue.split("-")[1];
+          //       console.log(newValue);
+          //       console.log(oldValue);
+          //     },
+          //     //立即执行
+          //     immediate:true
+          //   },
+          firstName(newValue, oldValue) {
+            this.userName = newValue + " " + this.lastName;
+          },
+          lastName(newValue, oldValue) {
+            this.userName = this.firstName + " " + newValue;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-for循环</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(item,index) in arr" v-bind:key="index">{{item}}</li>
+      </ul>
+      <ul>
+        <li v-for="(item,index,a) in obj" v-bind:key="index">
+          {{a}}.{{index}}:{{item}}
+        </li>
+      </ul>
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          arr: ["css", "java", "html", "javaWeb"],
+          obj: {
+            name: "刘志春",
+            age: 20,
+            sex: "man",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

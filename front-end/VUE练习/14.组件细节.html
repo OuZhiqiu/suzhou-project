@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件细节</title>
+    <style>
+      .header {
+        width: 100%;
+        height: 150px;
+        background: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <my-header :test.sync="parentTest"></my-header>
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      Vue.component("my-header", {
+        props: ["test"],
+        template: `
+                <div class="header">
+                    {{test}}
+                    <button @click="changeTest">change</button>
+                </div>
+            `,
+        methods: {
+          changeTest() {
+            this.$emit("update:test", "我修改了父组件的值");
+          },
+        },
+      });
+
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          parentTest: "父组件的值",
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>

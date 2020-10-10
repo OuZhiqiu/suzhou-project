@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>class&style</title>
+    <style>
+      .active {
+        color: aquamarine;
+        background: peru;
+      }
+      .large {
+        font-size: 30px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div v-bind:class="classObj">这是刘志春的文字</div> -->
+      <div
+        v-bind:class="[hasClass ? activeClass : '' , hasClass ? lasrgeClass : '' ]"
+      >
+        这是刘志春的文字
+      </div>
+
+      <button v-on:click="changeClass(true)">true</button>
+      <button v-on:click="changeClass(false)">false</button>
+
+      <child1 class="large"></child1>
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      Vue.component("child1", {
+        template: `
+            <div>
+                <span>这是child1组件</span>
+                <span>这是child1组件第二条消息</span>
+            </div>
+         `,
+      });
+
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          classObj: {
+            active: true,
+            large: true,
+          },
+          //   isActive: true,
+          activeClass: "active",
+          lasrgeClass: "large",
+          hasClass: true,
+        },
+        methods: {
+          changeClass(status) {
+            this.classObj = Object.assign({}, this.classObj, {
+              active: status,
+              large: status,
+            });
+            // this.isActive = status;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

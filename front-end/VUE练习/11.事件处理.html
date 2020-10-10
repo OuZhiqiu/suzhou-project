@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件处理</title>
+
+    <style>
+      .box1 {
+        width: 150px;
+        height: 150px;
+        background: red;
+      }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        background: blue;
+      }
+      .box3 {
+        width: 50px;
+        height: 50px;
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      {{count}}
+      <button @click="add($event,'hello')">add</button>
+
+      <!-- stop 点击事件停止，用于去除点击事件冒泡 -->
+      <div class="box1" @click.stop="box1Click">
+        <div class="box2" @click.stop="box2Click">
+          <div class="box3" @click.stop="box3Click"></div>
+        </div>
+      </div>
+
+      <!-- once 事件只执行一次
+      prevent 去除默认跳转刷新页面 -->
+      <a href="" @click.once.prevent="linkTo">click</a>
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          count: 0,
+        },
+        methods: {
+          add(event, data) {
+            this.count++;
+            console.log(event);
+            console.log(data);
+          },
+          box1Click() {
+            console.log("box1被点击了");
+          },
+          box2Click() {
+            console.log("box2被点击了");
+          },
+          box3Click() {
+            console.log("box3被点击了");
+          },
+          linkTo() {
+            console.log("a标签被点击了");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <child v-model="childValue"></child>
+
+      {{childValue}}
+    </div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      Vue.component("child", {
+        props: {
+          value: {
+            type: String,
+            default: "",
+          },
+        },
+        data() {
+          return {
+            inpValue: "",
+          };
+        },
+        template: `
+                      <div>
+                          <input @input="inpChange" v-model="inpValue"/>
+                      </div>
+                  `,
+        methods: {
+          inpChange() {
+            this.$emit("input", this.inpValue);
+            // console.log("组件内的值改变了", this.inpValue);
+          },
+        },
+        watch: {
+          value(newValue, oldValue) {
+            this.inpValue = newValue;
+            console.log("new", newValue);
+            console.log("old", oldValue);
+          },
+        },
+      });
+
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          childValue: "",
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>

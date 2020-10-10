@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计算属性-调节器</title>
+  </head>
+  <body>
+    <div id="app">{{fullName}}</div>
+
+    <script src="./js/vue.js"></script>
+
+    <script>
+      let myApp = new Vue({
+        el: "#app",
+        data: {
+          firstName: "",
+          lastName: "",
+        },
+        methods: {},
+        computed: {
+          fullName: {
+            get: function () {
+              return this.firstName + "-" + this.lastName;
+            },
+            set: function (newValue) {
+              console.log(newValue);
+              this.firstName = newValue.split("-")[0];
+              this.lastName = newValue.split("-")[1];
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
