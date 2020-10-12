@@ -2,63 +2,52 @@
   <div class="container-list">
     <div class="search-box">
       <div class="input-icon"></div>
-      <input type="text" />
+      <input type="text" v-model="inpValue" @keyup.enter="search" />
     </div>
 
     <ul class="content-box">
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
-        <div class="item-icon"></div>
-      </li>
-      <li>
-        <div class="title">关于本站11111111</div>
-        <div>管理员 发布于：2019-05-01 14:05:05</div>
+      <li
+        v-for="(item, index) in newContentData"
+        :key="index"
+        v-on:click="toDetail(item)"
+      >
+        <div class="title">{{ item.title }}</div>
+        <div>{{ item.userName }} 发布于：{{ item.updataTime }}</div>
         <div class="item-icon"></div>
       </li>
     </ul>
   </div>
 </template>
+
+<script>
+import { contentData, detailList } from "./data/data.js";
+//使用import调用数据时，需要在数据中用export将数据暴露出来，才可使用
+
+export default {
+  data() {
+    return {
+      inpValue: "",
+      newContentData: contentData
+    };
+  },
+  methods: {
+    search() {
+      this.newContentData = contentData.filter(item => {
+        return item.title.includes(this.inpValue);
+      });
+    },
+    toDetail(data) {
+      let datailData = detailList.filter(item => {
+        return item.detailId === data.id;
+      })[0];
+      this.$router.push({
+        path: "/detail",
+        query: Object.assign({}, datailData, data)
+      });
+    }
+  }
+};
+</script>
 
 <style scoped>
 .container-list .search-box {
@@ -131,7 +120,3 @@
   line-height: 40px;
 }
 </style>
-
-<script>
-export default {};
-</script>

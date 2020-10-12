@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <div class="page-title">文章管理</div>
+    <div
+      class="page-title"
+      :style="{ 'justify-content': btnVisible ? 'space-between ' : 'center' }"
+    >
+      <span class="goBack" v-show="btnVisible" @click="goBack">返回</span>
+      <span>文章管理</span>
+      <span class="save" v-show="btnVisible" @click="save">保存</span>
+    </div>
 
     <ul class="page-tab">
       <li
@@ -37,12 +44,29 @@ export default {
   data() {
     return {
       tabList: ["文章列表", "文章编写", "文章分类"],
-      currenTab: 0
+      currenTab: 0,
+      btnVisible: false
     };
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+    save() {
+      this.$router.go(-1);
+    },
     tabClick(index) {
       this.currenTab = index;
+    }
+  },
+  watch: {
+    $route(route) {
+      // console.log(route);
+      if (route.path === "/detail") {
+        this.btnVisible = true;
+      } else {
+        this.btnVisible = false;
+      }
     }
   }
 };
@@ -66,16 +90,40 @@ export default {
 }
 
 .container .page-title {
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
-  background: rgb(100, 108, 252);
   color: #ffffff;
+  background: rgb(100, 108, 252);
   width: 100%;
   height: 40px;
   line-height: 40px;
   text-align: center;
   z-index: 1;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.container .page-title span.goBack {
+  color: #ffffff;
+  border: 2px solid #aaa;
+  border-radius: 20px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+
+.container .page-title span.save {
+  color: #ffffff;
+  border: 2px solid #aaa;
+  border-radius: 20px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
 }
 
 .container .page-tab {
@@ -87,7 +135,8 @@ export default {
   justify-content: space-between;
   align-items: center;
   background: #ffffff;
-  border-bottom: 1px solid blue;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid rgb(100, 108, 252);
   z-index: 1;
 }
 
