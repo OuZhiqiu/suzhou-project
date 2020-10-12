@@ -12,7 +12,7 @@
         v-on:click="toDetail(item)"
       >
         <div class="title">{{ item.title }}</div>
-        <div>{{ item.userName }} 发布于：{{ item.updataTime }}</div>
+        <div>{{ item.userName }} 发布于：{{ item.updateTime }}</div>
         <div class="item-icon"></div>
       </li>
     </ul>

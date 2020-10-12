@@ -4,15 +4,15 @@
       <ul class="content-box">
         <li>
           <div>作者:</div>
-          <input v-model="d().userName" id="auther" type="text" />
+          <input v-model="detailData.userName" id="auther" type="text" />
         </li>
         <li>
           <div>标题:</div>
-          <input v-model="d().title" id="detailTitle" type="text" />
+          <input v-model="detailData.title" id="detailTitle" type="text" />
         </li>
         <li>
           <div>内容:</div>
-          <textarea v-model="d().detailInfo" id="remark" name="" cols="30" rows="10"></textarea>
+          <textarea v-model="detailData.detailInfo" id="remark" name="" cols="30" rows="10"></textarea>
         </li>
       </ul>
     </div>
@@ -25,8 +25,8 @@ export default {
     return {
     };
   },
-  methods: {
-    d() {
+  computed: {
+    detailData() {
       return this.$route.query;
     }
   }
