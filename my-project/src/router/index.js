@@ -10,6 +10,10 @@ import Container from "@/components/jineng/container.vue";
 import ContainerList from "@/components/jineng/container-list.vue";
 import Detail from "@/components/jineng/detail.vue";
 
+import Comm1 from "@/components/vuex&store/comm1.vue";
+import Comm2 from "@/components/vuex&store/comm2.vue";
+import ShopingCar from "@/components/vuex&store/shoping-car.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -18,6 +22,21 @@ export default new Router({
       path: "*",
       name: "*",
       component: NotPage
+    },
+    {
+      path: "/comm1",
+      name: "comm1",
+      component: Comm1
+    },
+    {
+      path: "/comm2",
+      name: "comm2",
+      component: Comm2
+    },
+    {
+      path: "/shopingCar",
+      name: "shopingCar",
+      component: ShopingCar
     },
     {
       path: "/home",
@@ -37,7 +56,7 @@ export default new Router({
       ]
     },
     {
-      path: "/",
+      path: "",
       name: "HelloWorld",
       component: HelloWorld
     },
