@@ -24,6 +24,9 @@ export default {
       text: "传入组件的内部参数"
     };
   },
+  mounted() {
+    console.log(this.$store.state);
+  },
   methods: {
     child(data) {
       console.log(data);
