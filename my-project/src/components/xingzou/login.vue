@@ -5,12 +5,14 @@
       <el-form :model="formData" ref="form" :rules="formRules">
         <el-form-item prop="userName">
           <el-input
+            @keyup.native.enter="onLogin"
             v-model="formData.userName"
             placeholder="请输入用户名"
           ></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
+            @keyup.native.enter="onLogin"
             v-model="formData.password"
             type="password"
             placeholder="请输入密码"

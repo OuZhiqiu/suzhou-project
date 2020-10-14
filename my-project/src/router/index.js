@@ -18,6 +18,7 @@ import eltOther from "@/components/element/eltother.vue";
 import eltLogin from "@/components/element/eltlogin.vue";
 
 import Login from "@/components/xingzou/login.vue";
+import Manage from "@/components/xingzou/manage.vue";
 import UserManage from "@/components/xingzou/user-manage.vue";
 
 Vue.use(Router);
@@ -40,9 +41,16 @@ export default new Router({
       component: Login
     },
     {
-      path: "/userManage",
-      name: "userManage",
-      component: UserManage
+      path: "/manage",
+      name: "manage",
+      component: Manage,
+      children:[
+        {
+          path: "/userManage",
+          name: "userManage",
+          component: UserManage
+        },
+      ]
     },
     {
       path: "/eltother",
