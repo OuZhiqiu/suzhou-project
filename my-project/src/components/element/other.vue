@@ -42,12 +42,18 @@ export default {
     };
   },
   methods: {
-    handleSelectionChange() {},
+    handleSelectionChange(val) {
+      console.log(val);
+    },
     clickName(row) {
       console.log(row);
     },
-    changeTableChecked() {},
-    clearRows() {}
+    changeTableChecked() {
+      this.$refs.myTable.toggleRowSelection(this.tableData[1]);
+    },
+    clearRows() {
+          this.$refs.myTable.clearSelection();
+    }
   }
 };
 </script>
