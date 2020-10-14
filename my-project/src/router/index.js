@@ -14,8 +14,10 @@ import Comm1 from "@/components/vuex&store/comm1.vue";
 import Comm2 from "@/components/vuex&store/comm2.vue";
 import ShopingCar from "@/components/vuex&store/shoping-car.vue";
 
-import Other from '@/components/element/other.vue';
-import Login from '@/components/element/login.vue';
+import eltOther from "@/components/element/other.vue";
+import eltLogin from "@/components/element/login.vue";
+
+import Login from "@/components/xingzou/login.vue";
 
 Vue.use(Router);
 
@@ -27,14 +29,19 @@ export default new Router({
       component: NotPage
     },
     {
-      path: "/other",
-      name: "other",
-      component: Other
-    },
-    {
       path: "/login",
       name: "login",
       component: Login
+    },
+    {
+      path: "/eltother",
+      name: "eltother",
+      component: eltOther
+    },
+    {
+      path: "/eltlogin",
+      name: "eltlogin",
+      component: eltLogin
     },
     {
       path: "/comm1",
