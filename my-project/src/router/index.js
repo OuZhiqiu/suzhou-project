@@ -14,12 +14,18 @@ import Comm1 from "@/components/vuex&store/comm1.vue";
 import Comm2 from "@/components/vuex&store/comm2.vue";
 import ShopingCar from "@/components/vuex&store/shoping-car.vue";
 
-import eltOther from "@/components/element/other.vue";
-import eltLogin from "@/components/element/login.vue";
+import eltOther from "@/components/element/eltother.vue";
+import eltLogin from "@/components/element/eltlogin.vue";
 
 import Login from "@/components/xingzou/login.vue";
+import UserManage from "@/components/xingzou/user-manage.vue";
 
 Vue.use(Router);
+
+// const originalPush = Router.prototype.push;
+// Router.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// };
 
 export default new Router({
   routes: [
@@ -32,6 +38,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login
+    },
+    {
+      path: "/userManage",
+      name: "userManage",
+      component: UserManage
     },
     {
       path: "/eltother",

@@ -17,7 +17,12 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onLogin" class="btnLogin">
+          <el-button
+            :loading="loginLoading"
+            type="primary"
+            @click="onLogin"
+            class="btnLogin"
+          >
             登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
           </el-button>
         </el-form-item>
@@ -27,6 +32,8 @@
 </template>
 
 <script>
+import $ from "jquery";
+
 export default {
   data() {
     return {
@@ -36,14 +43,40 @@ export default {
           { required: true, message: "请输入用户名", trigger: "change" }
         ],
         password: [{ required: true, message: "请输入密码", trigger: "change" }]
-      }
+      },
+      loginLoading: false
     };
   },
   methods: {
     onLogin() {
       this.$refs.form.validate(item => {
         if (item) {
-          alert("登录");
+          this.loginLoading = true;
+
+          $.ajax({
+            url: "http://192.168.3.77:3000/api/demo/login",
+            method: "post",
+            data: this.formData,
+            dataType: "json",
+            success: data => {
+              setTimeout(() => {
+                this.loginLoading = false;
+                console.log("data", data);
+                if (data.data) {
+                  this.$message({
+                    type: "success",
+                    message: data.message
+                  });
+                  this.$router.push({ path: "/userManage" });
+                } else {
+                  this.$message({
+                    type: "error",
+                    message: data.message
+                  });
+                }
+              }, 500);
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;
