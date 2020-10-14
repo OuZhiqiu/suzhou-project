@@ -1,7 +1,27 @@
 <template>
   <div class="content">
-    <div class="form-box">
-      <div>请登录</div>
+    <div class="formBox">
+      <div class="formTitle">请登录</div>
+      <el-form :model="formData" ref="form" :rules="formRules">
+        <el-form-item prop="userName">
+          <el-input
+            v-model="formData.userName"
+            placeholder="请输入用户名"
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            v-model="formData.password"
+            type="password"
+            placeholder="请输入密码"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onLogin" class="btnLogin">
+            登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
+          </el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -9,9 +29,28 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      formData: {},
+      formRules: {
+        userName: [
+          { required: true, message: "请输入用户名", trigger: "change" }
+        ],
+        password: [{ required: true, message: "请输入密码", trigger: "change" }]
+      }
+    };
   },
-  methods: {}
+  methods: {
+    onLogin() {
+      this.$refs.form.validate(item => {
+        if (item) {
+          alert("登录");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    }
+  }
 };
 </script>
 
@@ -26,13 +65,25 @@ export default {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-.form-box{
+.formBox {
   width: 300px;
   height: 300px;
   background: rgba(255, 255, 255, 0.15);
   position: absolute;
   top: 50%;
   right: 50px;
-  transform: translate(0,-60%);
+  transform: translate(0, -60%);
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 25px;
+}
+.formTitle {
+  color: #ddd;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 30px 0 20px;
+}
+.btnLogin {
+  width: 120px;
 }
 </style>
