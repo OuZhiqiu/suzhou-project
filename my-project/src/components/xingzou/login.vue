@@ -66,12 +66,12 @@ export default {
   background-size: 100% 100%;
 }
 .formBox {
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: 290px;
   background: rgba(255, 255, 255, 0.15);
   position: absolute;
   top: 50%;
-  right: 50px;
+  right: 100px;
   transform: translate(0, -60%);
   text-align: center;
   box-sizing: border-box;
