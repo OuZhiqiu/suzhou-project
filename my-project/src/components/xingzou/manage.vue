@@ -18,7 +18,7 @@
           {{ item.menuName }}
         </li>
       </ul>
-      
+
       <div class="content">
         <router-view></router-view>
       </div>
@@ -71,7 +71,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 50px;
   box-sizing: border-box;
 }
 
@@ -84,6 +84,8 @@ export default {
 .user-head-photo {
   width: 150px;
   height: 80px;
+  color: #60a3fe;
+  font-weight: bold;
   display: flex;
   justify-content: space-around;
   align-items: center;
