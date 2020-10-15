@@ -20,6 +20,7 @@ import eltLogin from "@/components/element/eltlogin.vue";
 import Login from "@/components/xingzou/login.vue";
 import Manage from "@/components/xingzou/manage.vue";
 import UserManage from "@/components/xingzou/user-manage.vue";
+import MenuManage from "@/components/xingzou/menu-manage.vue";
 
 Vue.use(Router);
 
@@ -49,6 +50,11 @@ export default new Router({
           path: "/userManage",
           name: "userManage",
           component: UserManage
+        },
+        {
+          path: "/menuManage",
+          name: "menuManage",
+          component: MenuManage
         },
       ]
     },
