@@ -59,6 +59,13 @@ export default {
       this.currenTab = index;
     }
   },
+  mounted() {
+      if (this.$route.path === "/detail") {
+        this.btnVisible = true;
+      } else {
+        this.btnVisible = false;
+      }
+  },
   watch: {
     $route(route) {
       // console.log(route);

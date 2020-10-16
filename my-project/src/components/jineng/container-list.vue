@@ -20,15 +20,30 @@
 </template>
 
 <script>
-import { contentData, detailList } from "./data/data.js";
+// import { contentData, detailList } from "./data/data.js";
 //使用import调用数据时，需要在数据中用export将数据暴露出来，才可使用
+
+import $ from "jquery";
 
 export default {
   data() {
     return {
       inpValue: "",
-      newContentData: contentData
+      // newContentData: contentData
+      newContentData: []
     };
+  },
+  mounted() {
+    $.ajax({
+      url: "http://192.168.3.77:3000/api/demo/getList",
+      method: "get",
+      // data: this.dialogFormData,
+      dataType: "json",
+      success: res => {
+        console.log(res);
+        this.newContentData = res;
+      }
+    });
   },
   methods: {
     search() {
@@ -37,12 +52,18 @@ export default {
       });
     },
     toDetail(data) {
-      let datailData = detailList.filter(item => {
-        return item.detailId === data.id;
-      })[0];
-      this.$router.push({
-        path: "/detail",
-        query: Object.assign({}, datailData, data)
+      $.ajax({
+        url: "http://192.168.3.77:3000/api/demo/detail",
+        method: "get",
+        data: 'id='+data.id ,
+        dataType: "json",
+        success: res => {
+          console.log(res);
+          this.$router.push({
+            path: "/detail",
+            query: res
+          });
+        }
       });
     }
   }
