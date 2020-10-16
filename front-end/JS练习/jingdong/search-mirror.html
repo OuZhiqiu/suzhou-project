@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        #base-box {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            border: 1px solid #aaa;
+            background: url('./image/my-computed-small.jpg');
+        }
+
+        #base-box .all-model {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        #base-box .move-model {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 300px;
+            background: #FEDE4F;
+            opacity: 0.5;
+            cursor: move;
+        }
+
+        #large-box {
+            display: none;
+            position: relative;
+            width: 540px;
+            height: 540px;
+            border: 1px solid #aaa;
+            overflow: hidden;
+        }
+
+        #large-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="base-box">
+            <div class="move-model"></div>
+
+            <div class="all-model"></div>
+        </div>
+        <div id="large-box">
+            <img src="./image/my-compute-large.jpg" alt="">
+        </div>
+    </div>
+
+    <script src="js/jquery-3.4.1.js"></script>
+    <script>
+        let baseBox = $('#base-box')
+        let allModel = $('#base-box .all-model')
+        let moveModel = $('.move-model')
+        let larImg = $('#large-box img')
+        let largeBox = $('#large-box')
+
+        allModel.on('mouseover', function () {
+            largeBox.css({
+                display: 'block'
+            })
+        })
+
+        allModel.on('mouseleave', function () {
+            largeBox.css({
+                display: 'none'
+            })
+        })
+
+        allModel.on('mousemove', function (e) {
+            let moveModelWidth = parseFloat(moveModel.css('width'))
+            let allModelWidth = parseFloat(allModel.css('width'))
+            let offsetx = e.offsetX
+            let offsety = e.offsetY
+            let posLeft = offsetx - (moveModelWidth / 2)
+            let posTop = offsety - (moveModelWidth / 2)
+
+            if (offsetx - (moveModelWidth / 2) <= 0) {
+                posLeft = 0
+            }
+
+            if (posLeft >= allModelWidth - moveModelWidth) {
+                posLeft = allModelWidth - moveModelWidth
+            }
+
+            if (offsety - (moveModelWidth / 2) <= 0) {
+                posTop = 0
+            }
+
+            if (posTop >= allModelWidth - moveModelWidth) {
+                posTop = allModelWidth - moveModelWidth
+            }
+
+            moveModel.css({
+                top: posTop + 'px',
+                left: posLeft + 'px'
+            })
+
+            larImg.css({
+                top: -(posTop * 1.7) + 'px',
+                left: -(posLeft * 1.7) + 'px'
+            })
+        })
+    </script>
+</body>
+</html>

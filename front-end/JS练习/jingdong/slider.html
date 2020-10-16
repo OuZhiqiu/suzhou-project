@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./font/iconfont.css">
+    <style>
+        #container {
+            position: relative;
+            width: 590px;
+            height: 470px;
+            border: 1px solid #aaa;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .img-list {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .img-list li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0;
+            transition: .5s;
+        }
+
+        /* .img-list li:first-child {
+            z-index: 1;
+        } */
+
+        .img-list li.active {
+            z-index: 1;
+            opacity: 1;
+        }
+
+        #container .prev-btn {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 25px;
+            height: 35px;
+            /* background: red; */
+            background: rgba(0,0,0,0.3);
+            z-index: 2;
+            border-top-right-radius: 17.5px;
+            border-bottom-right-radius: 17.5px;
+            transform: translate(0, -50%);
+            text-align: center;
+            line-height: 35px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        #container .prev-btn:hover {
+            background: rgba(0,0,0,0.5);
+        }
+
+        #container .next-btn {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 25px;
+            height: 35px;
+            /* background: red; */
+            z-index: 2;
+            background: rgba(0,0,0,0.3);
+            border-top-left-radius: 17.5px;
+            border-bottom-left-radius: 17.5px;
+            transform: translate(0, -50%);
+            text-align: center;
+            line-height: 35px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        #container .next-btn:hover {
+            background: rgba(0,0,0,0.5);
+        }
+
+        #container .circle-btn {
+            display: flex;
+            position: absolute;
+            left: 50%;
+            bottom: 30px;
+            transform: translate(-50%, 0);
+            z-index: 3;
+        }
+
+        #container .circle-btn li {
+            width: 15px;
+            height: 15px;
+            background: #aaa;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        #container .circle-btn li.active {
+            background: #fff;
+            box-shadow: 0 0 15px #ddd;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 要求：
+        1.定义一个容器div id值为container
+        2.长宽590*470，边框颜色#aaa
+        3.把所有的图片绝对定位，然后定在左上方
+    -->
+
+    <!-- 图标字体 -->
+
+    <div id="container">
+        <div class="prev-btn iconfont iconzuojiantou-copy"></div>
+        <ul class="img-list">
+            <li class="active">
+                <img src="./image/1.jpg" alt="">
+            </li>
+            <li>
+                <img src="./image/2.jpg" alt="">
+
+            </li>
+            <li>
+                <img src="./image/3.jpg" alt="">
+            </li>
+            <li>
+                <img src="./image/4.jpg" alt="">
+            </li>
+            <li>
+                <img src="./image/5.jpg" alt="">
+            </li>
+            <li>
+                <img src="./image/6.jpg" alt="">
+            </li>
+        </ul>
+
+        <ul class="circle-btn">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+        <div class="next-btn iconfont iconarrow-right"></div>
+    </div>
+
+
+    <script src="./js/jquery-3.4.1.js"></script>
+
+    <script>
+        let prevBtn = $('#container .prev-btn')
+        let nextBtn = $('#container .next-btn')
+        let imgList = $('.img-list li')
+        let circleBtnList = $('.circle-btn li')
+
+        prevBtn.click(function () {
+            let currentImg = $('#container .img-list .active')
+            let index = currentImg.index()
+
+            if (index === 0) {
+                togglePicture(5)
+            } else {
+                togglePicture(index - 1)
+            }
+        })
+
+        nextBtn.click(function () {
+            let currentImg = $('#container .img-list .active')
+            let index = currentImg.index()
+
+            if (index + 1 === 6) {
+                togglePicture(0)
+            } else {
+                togglePicture(index + 1)
+            }
+        })
+
+        circleBtnList.each(function (index, element) {
+            $(this).click(function () {
+                togglePicture(index)
+            })
+        })
+
+        let togglePicture = function (index) {
+            circleBtnList.each(function (circleIndex, element) {
+                $(element).removeClass('active')
+            })
+
+            imgList.each(function (imgIndex, element) {
+                $(element).removeClass('active')
+            })
+
+            $(imgList[index]).addClass('active')
+
+            $(circleBtnList[index]).addClass('active')
+        }
+
+    </script>
+</body>
+</html>
