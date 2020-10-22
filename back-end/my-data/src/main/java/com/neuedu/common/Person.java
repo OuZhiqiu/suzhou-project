@@ -1,3 +1,5 @@
+package com.neuedu.common;
+
 public class Person {
     private String name;
     private Integer age;
@@ -67,7 +69,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "com.neuedu.common.Person{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", school='" + school + '\'' +

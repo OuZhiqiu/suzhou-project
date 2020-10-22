@@ -1,3 +1,5 @@
+package com.neuedu.common;
+
 public class Assignment1 {
     /**
      * @param args

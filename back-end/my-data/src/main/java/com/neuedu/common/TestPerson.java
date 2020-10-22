@@ -1,3 +1,5 @@
+package com.neuedu.common;
+
 import java.util.Scanner;
 
 public class TestPerson {

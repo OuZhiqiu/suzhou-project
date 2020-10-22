@@ -1,3 +1,5 @@
+package com.neuedu.common;
+
 import java.util.Arrays;
 
 public class Student {

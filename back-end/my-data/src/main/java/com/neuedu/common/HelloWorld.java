@@ -1,3 +1,5 @@
+package com.neuedu.common;
+
 public class HelloWorld {
 
     private boolean flag2;
