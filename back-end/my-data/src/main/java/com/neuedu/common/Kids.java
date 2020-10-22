@@ -11,11 +11,17 @@ public class Kids extends ManKind{
         someKid.manOrWorman();
         someKid.employeed();
         someKid.printAge();
+        someKid.m1();
     }
 
     @Override
     public void employeed() {
         System.out.println("kids should study and no job");
+    }
+
+    @Override
+    void m1() {
+        System.out.println("重写父类ManKind的抽象方法");
     }
 
     public void printAge(){

@@ -20,6 +20,10 @@ public class Peasant extends ManKind {
         }
     }
 
+    void m1() {
+
+    }
+
     public void printAge() {
         System.out.println(yearsOld);
     }

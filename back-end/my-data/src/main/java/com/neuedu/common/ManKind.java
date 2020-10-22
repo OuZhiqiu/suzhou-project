@@ -1,6 +1,6 @@
 package com.neuedu.common;
 
-public class ManKind {
+public abstract class ManKind {
     private Integer sex;
     private Integer salary;
 
@@ -35,4 +35,6 @@ public class ManKind {
     public void setSalary(Integer salary) {
         this.salary = salary;
     }
+
+    abstract void m1();
 }

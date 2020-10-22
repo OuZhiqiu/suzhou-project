@@ -21,6 +21,10 @@ public class Teacher extends ManKind {
         }
     }
 
+    void m1() {
+
+    }
+
     public void printAge() {
         System.out.println(yearsOld);
     }
