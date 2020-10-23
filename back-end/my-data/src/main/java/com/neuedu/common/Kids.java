@@ -4,14 +4,19 @@ public class Kids extends ManKind{
     private int yearsOld;
 
     public static void main(String[] args) {
-        Kids someKid=new Kids();
-        someKid.setSex(1);
-        someKid.setSalary(0);
-        someKid.setYearsOld(35);
-        someKid.manOrWorman();
-        someKid.employeed();
-        someKid.printAge();
-        someKid.m1();
+        //  try / catch快捷键Ctrl+Alt+T
+        try {
+            Kids someKid=new Kids();
+            someKid.setSex(1);
+            someKid.setSalary(0);
+            someKid.setYearsOld(35);
+            someKid.manOrWorman();
+            someKid.employeed();
+            someKid.printAge();
+            someKid.m1();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
